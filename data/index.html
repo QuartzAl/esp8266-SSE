@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Map</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/leaflet.css">
+</head>
+<body>
+<h2>Map</h2>
+<div id="map" style="width: 600px; height: 400px; position: relative;"></div>
+</body>
+<script src="js/leaflet.js"></script>
+<script>
+    function httpGet(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+
+    var latLong = httpGet("/data").split(",");
+    var marker = L.marker(latLong).addTo(map);
+    marker.bindPopup("<b>Snacks stand</b><br>Status: Available").openPopup();
+
+    var map = L.map('map').setView([51.5, -0.09], 15);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    if (!!window.EventSource) {
+        var source = new EventSource('/events');
+
+        source.addEventListener('open', function(e) {
+            console.log("Events Connected");
+        }, false);
+        source.addEventListener('error', function(e) {
+            if (e.target.readyState !== EventSource.OPEN) {
+                console.log("Events Disconnected");
+            }
+        }, false);
+
+        source.addEventListener('message', function(e) {
+            console.log("message", e.data);
+        }, false);
+
+
+</script>
+</html>

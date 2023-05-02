@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../esp8266_APwebserver"
+		},
+		{
+			"name": "ESP8266 webserver",
+			"path": "."
+		}
+	],
+	"settings": {}
+}
