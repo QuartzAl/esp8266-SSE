@@ -27,6 +27,7 @@ export function listenEventSource() {
     source.addEventListener(
       "message",
       function (e: EventData) {
+        console.log(e.data);
         // Parse data
         const data: [number, number] = JSON.parse(e.data);
 

@@ -1,7 +1,7 @@
 import { listenEventSource } from "./eventListener";
 import { updateMarker } from "./mapStore";
 
-export const webServerThing = "http://localhost:3000";
+export const webServerThing = "";
 
 // Async function to load the initial map
 fetch(webServerThing + "/data").then(async (res) => {

@@ -15,8 +15,10 @@ export function updateMarker(name: string, latLng: LatLngTuple) {
   let marker = markers.get(name);
   if (marker) {
     marker.setLatLng(latLng);
+    map.setView(marker.getLatLng());
   } else {
     marker = L.marker(latLng).addTo(map);
+    map.setView(marker.getLatLng());
     markers.set(name, marker);
   }
   return marker;
